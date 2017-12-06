@@ -1,0 +1,8 @@
+{
+  "VENDOR":"",
+  "VENDOR_AUTH":"",
+  "PORT":"",
+  "redirect_uri": "",
+  "grant_host_url": "",
+  "debug_level":"True"
+}

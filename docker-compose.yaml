@@ -1,0 +1,11 @@
+version: '2'
+services:
+  web:
+    container_name: spinn3r-data-extract
+    image: cortext/cortext_pytheas
+    ports:
+     - '5000:8080'
+    volumes:
+     - './spinn3r-data-extract:/opt/spinn3r-data-extract'
+     - './spinn3r-data-extract/conf:/opt/spinn3r-data-extract/conf'
+    restart: always 
