@@ -3,7 +3,7 @@ import io
 import json
 import csv
 import requests
-import encodings
+import get_data
 
 from flask import Flask
 from flask import render_template
@@ -29,14 +29,15 @@ def hello():
 
 @app.route("/processing", methods=['POST', 'GET'])
 def processing():
-	# type of query
-	# hashtag = str(request.form.get('hashtag'))
-	# account = str(request.form.get('account'))
-	# query = str(request.form.get('query'))
-	
-	# select query by
+	# simple or advanced query
+	simple = str(request.form.get('simple'))
+	advanced = str(request.form.get('advanced'))
+	print(simple)
+	print(advanced)
+
+	# filters
 	# infinite = request.form.get('infinite')
-	# size = int(request.form.get('size'))
+	#size = int(request.form.get('size'))
 	# date = request.form.get('date')
 	
 	# prepare query
@@ -44,17 +45,20 @@ def processing():
 	bucket_data = []
 
 	# package everything 
-	info = {
-		"QUERY" : query,
-		"SIZE" : size,
-		"DATA" : bucket_data
-	}	
+	#info = {
+	#	"QUERY" : query,
+	#	"SIZE" : size,
+	#	"DATA" : bucket_data
+	#}	
 
 	# choose between CSV or JSON
 	datatype = request.form.get('datatype')
 	
 	if datatype == 'json':
-		return jsonify(info)
+		buckets_data = loop_download(QUERY)
+
+
+		return jsonify(buckets_data)
 
 	elif datatype == 'csv':
 		keys = bucket_data[0].keys()
