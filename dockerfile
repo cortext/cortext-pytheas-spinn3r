@@ -7,11 +7,11 @@ RUN apt-get update
 RUN apt-get install nano -y
 
 # copy scripts
-RUN mkdir /opt/spinn3r-data-extract
-COPY . /opt/spinn3r-data-extract
+RUN mkdir /opt/spinn3r_data_extract
+COPY . /opt/spinn3r_data_extract
 
 #prepare work directory
-WORKDIR /opt/spinn3r-data-extract
+WORKDIR /opt/spinn3r_data_extract
 
 # install flask & co
 RUN pip install -r requirements.txt
@@ -20,7 +20,7 @@ RUN pip install -r requirements.txt
 EXPOSE 5000
 
 # Define working volumes
-VOLUME ["/opt/spinn3r-data-extract", "/opt/spinn3r-data-extract/conf"]
+VOLUME ["/opt/spinn3r_data_extract", "/opt/spinn3r_data_extract/conf"]
 
 #lauch app
 CMD python app.py
