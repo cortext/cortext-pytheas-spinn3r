@@ -45,16 +45,19 @@ def download(QUERY):
 
 
 def loop_download(QUERY):
+	from pprint import pprint
+
 	VENDOR,VENDOR_AUTH, headers = get_config()
 	NUMBER_OF_PAGES=json.loads(QUERY)['size']
-	
 	response = download(QUERY)
+
+	# get scroll_id for next page
 	data=json.loads(response.text)
 	scroll_id = data["_scroll_id"]
-	
-	buckets_data = {}
-	buckets_data.update(response.json()['hits'])
 
+	# prepare adding all data together and first response
+	bucket_data = response.json()['hits']['hits']
+	print('total len is : ', len(bucket_data))
 	count = 0
 	for page in range( 1, NUMBER_OF_PAGES):
 		count += 1
@@ -62,25 +65,21 @@ def loop_download(QUERY):
 
 		url='http://%s.elasticsearch.spinn3r.com/_search/scroll?scroll=5m&pretty=true' % VENDOR
 		response = requests.post( url, headers=headers, data=scroll_id )
-		#handle_data(page,response)
 		scroll_id = response.json()["_scroll_id"]
-		if not response.json()['hits']['hits']:
+		
+		if not response.json()['hits']:
 			print('end of dataset')
 			break
 		else:
-			buckets_data.update(response.json()['hits'])
+			bucket_data += response.json()['hits']['hits'] 
+		print('--------------------------------------------')
 
-	return buckets_data
+	
 
 
-#QUERY = '''
-#{
-#	"size": 10,
-#	"query": {
-#		"query_string" : {
-#			"query" : "main:linux"
-#		}
-#	}
-#}
-#'''
-#buckets_data = loop_download(QUERY)
+	print('===============================================')
+	print('total len AFTER is : ', len(bucket_data))
+	
+	return bucket_data
+
+
