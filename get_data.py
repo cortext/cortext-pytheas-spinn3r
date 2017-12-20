@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import requests
 import json
+from pprint import pprint
 
 def get_config():
 	with open('conf/conf.json') as f:
@@ -22,6 +23,8 @@ def handle_data(page, response):
 
 
 def download(QUERY):
+	pprint(QUERY)
+	
 	VENDOR,VENDOR_AUTH, headers = get_config()
 	###
 	# Perform the first request.  The URL needs to be slightly different because
@@ -45,7 +48,7 @@ def download(QUERY):
 
 
 def loop_download(QUERY):
-	from pprint import pprint
+	pprint(QUERY)
 
 	VENDOR,VENDOR_AUTH, headers = get_config()
 	NUMBER_OF_PAGES=json.loads(QUERY)['size']

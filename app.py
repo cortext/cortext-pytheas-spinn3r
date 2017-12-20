@@ -29,16 +29,18 @@ except BaseException as error:
 
 @app.route("/")
 def hello():
+	print('hello')
 	return render_template('home.html')
 
 @app.route("/processing", methods=['POST', 'GET'])
 def processing():
+	from pprint import pprint
+	print('WHYYYY')
 	# simple or advanced query
 	# print(request.form)
 	simple_q = str(request.form.get('query-simple'))
 	advanced_q = str(request.form.get('query-advanced'))
-	# print(simple_q)
-	# print(advanced_q)
+	pprint(advanced_q)
 
 	# filters
 	# infinite = request.form.get('infinite')
@@ -48,6 +50,10 @@ def processing():
 	# prepare query
 	q = json.loads(advanced_q)
 	query = str(q['query']['query_string']).replace(" ","_")
+
+	
+	pprint(advanced_q)
+	pprint(q)
 
 	# download query
 	bucket_data = loop_download(advanced_q)

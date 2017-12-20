@@ -20,7 +20,7 @@ RUN pip install -r requirements.txt
 EXPOSE 5000
 
 # Define working volumes
-VOLUME ["/opt/spinn3r_data_extract", "/opt/spinn3r_data_extract/conf"]
+VOLUME ["/opt/pytheas_spinn3r/conf"]
 
 #lauch app
 CMD python app.py
