@@ -5,7 +5,7 @@
 		
 		<div class="row">
 			<div class="col-md-12 text-center">
-				<h1>Spinn3r data extractor</h1>
+				<h1>{{ self.title() }}</h1>
 			</div>
 		</div>
 		
@@ -16,7 +16,7 @@
 		</div>
 		<div class="row">
 			<div class="col-md-offset-2 col-md-8 ">
-				<form id="twt_form" method="POST" action="/processing" class="form-horizontal">
+				<form id="data_form" method="POST" action="/processing" class="form-horizontal">
 					<ul class="nav nav-pills">
 						<li class="active"><a data-toggle="pill" href="#simple">Simple Query</a></li>
 						<li><a data-toggle="pill" href="#advanced">Advanced query</a></li>
@@ -25,11 +25,10 @@
 					<div class="tab-content">
 						<div id="simple" class="tab-pane fade in active">
 							<h3 class="text-center">Simple query</h3>
-							<form id="twt_form" method="POST" action="/processing" class="form-horizontal">
 								<div class="form-group">
 									<label class="col-xs-3 control-label">Main</label>
 									<div class="col-xs-6">
-										<input type="text" class="form-control" name="query" placeholder="" />
+										<input type="text" class="form-control" name="main_query" placeholder="" />
 									</div>
 								</div>
 								<hr>
@@ -39,7 +38,7 @@
 										<label class="control-label">Tags </label>
 									</div>
 									<div class="col-xs-6">
-										<input type="text" class="form-control" name="tags" placeholder="linux" />
+										<input type="text" class="form-control" name="tags" placeholder="tags:firefox OR tags:linux" />
 									</div>
 								</div>
 								<div class="form-group">
@@ -47,7 +46,7 @@
 										<label class="control-label">Domain </label>
 									</div>
 									<div class="col-xs-6">
-										<input type="text" class="form-control" name="domain" placeholder="cnn.com" />
+										<input type="text" class="form-control" name="domain" placeholder="domain:cnn.com AND domain:fox.com" />
 									</div>
 								</div>
 								<div class="form-group">
@@ -57,6 +56,7 @@
 									</div>
 									<div class="col-xs-6">
 										<select class="form-control" name="source_publisher">
+										    <option></option>
 											<option>UNKNOWN</option>
 											<option>WEBLOG</option>
 											<option>MAINSTREAM_NEWS</option>
@@ -76,7 +76,7 @@
 										<label class="control-label">lang </label>
 									</div>
 									<div class="col-xs-6">
-										<input type="text" class="form-control" name="lang" placeholder="" />
+										<input type="text" class="form-control" name="lang" placeholder="lang:en OR lang:es" />
 									</div>
 								</div>
 								<div class="form-group">
@@ -103,11 +103,11 @@
 										<label class="control-label">Size results</label>
 									</div>
 									<div class="col-xs-6">
-										<input type="number" class="form-control" name="size" placeholder="100">
+										<input type="number" class="form-control" name="size" value="5">
 									</div>
 								</div>
 								<hr>
-							</form>
+					        </form>
 						</div>
 						
 						<div id="advanced" class="tab-pane fade">
@@ -117,7 +117,7 @@
 							<div class="form-group">
 								<label for="query">query:</label>
 								<textarea style="height: 50vh;" class="form-control" rows="5" name="query-advanced" >{
-	"size": 10,
+	"size": 5,
 	"query": {
 		"query_string" : {
 			"query" : "main:example"
@@ -144,13 +144,23 @@
 						</div>
 						<div class="row">
 							<div class="col-md-offset-3 col-md-3">
-								<button type="submit" form="twt_form" name="datatype" value="json" class="center-block btn btn-default">Download JSON</button>
+								<button type="submit" form="data_form" name="datatype" value="json" class="center-block btn btn-default">Download JSON</button>
 							</div>
 							<div class="col-md-3">
-								<button type="submit" form="twt_form" name="datatype" value="csv" class=" center-block btn btn-default">Download CSV</button>
+								<button type="submit" form="data_form" name="datatype" value="csv" class=" center-block btn btn-default">Download CSV</button>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		{% endblock %}
+		    </div>
+			
+    {% block footer %}
+        {{super()}}
+    {% endblock footer %}
+			
+			
+{% endblock %}
+		
+		
+
+	
