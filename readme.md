@@ -12,16 +12,16 @@ Simple web interface to download data from spinn3r (with credentials) in json/cs
 * others apis from spinn3r
 
 ## how to use ? 
+* create ***docker-compose.yaml*** && ***conf/conf.json*** (with credentials) from example files
+
 ### with docker and docker-compose
 
 1. first git clone this repo
 ``` 
-git clone --recursive https://github.com/cortext/simple-tweet-web-extract.git
+git clone https://github.com/cortext/cortext-pytheas-spinn3r.git
 ```
 
-2. create docker-compose.yaml && conf/conf.json (with credentials) from example files
-
-3. run docker
+2. run docker
 ```
 docker build -t cortext/cortext_pytheas . && docker-compose up 
 ```
