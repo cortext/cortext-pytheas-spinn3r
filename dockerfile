@@ -7,11 +7,11 @@ RUN apt-get update
 RUN apt-get install nano -y
 
 # copy scripts
-RUN mkdir /opt/spinn3r_data_extract
-COPY . /opt/spinn3r_data_extract
+RUN mkdir /opt/pytheas
+COPY . /opt/pytheas
 
 #prepare work directory
-WORKDIR /opt/spinn3r_data_extract
+WORKDIR /opt/pytheas
 
 # install flask & co
 RUN pip install -r requirements.txt
@@ -20,7 +20,7 @@ RUN pip install -r requirements.txt
 EXPOSE 5000
 
 # Define working volumes
-VOLUME ["/opt/pytheas_spinn3r/conf"]
+VOLUME ["/opt/pytheas", "/opt/pytheas/conf"]]
 
 #lauch app
 CMD python app.py
